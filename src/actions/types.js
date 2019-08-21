@@ -1,0 +1,7 @@
+export const CREATE_BOARD = "CREATE_BOARD";
+export const FLIP_CARD = "FLIP_CARD";
+export const TOGGLE_DISABLED = "TOGGLE_DISABLED";
+export const SET_SOLVED = "SET_SOLVED";
+export const INCREMENT_MOVES = "INCREMENT_MOVES";
+export const RESET_FLIPPED = "RESET_FLIPPED";
+export const TOGGLE_MENU = "TOGGLE_MENU";
