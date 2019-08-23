@@ -10,17 +10,21 @@ const initialState = {
 };
 
 const boardReducer = (state = initialState, action) => {
-  const createCards = numberOfCards => {
-    return Array.from({ length: numberOfCards * 2 }, (_, i) =>
+  const createCards = (numberOfCards, order) => {
+    const array = Array.from({ length: numberOfCards * 2 }, (_, i) =>
       Math.floor(i / 2)
-    )
-      .map((x, y) => ({ value: x, key: y }))
-      .sort(() => Math.random() - 0.5);
+    ).map((value, index) => ({ value, key: index }));
+
+    if (order) {
+      return array;
+    }
+
+    return array.sort(() => Math.random() - 0.5);
   };
 
   switch (action.type) {
     case actions.CREATE_BOARD: {
-      const cards = createCards(action.numberOfCards);
+      const cards = createCards(action.numberOfCards, action.order);
       return { ...initialState, cards, solved: [] };
     }
 

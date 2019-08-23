@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`card functionality card renders correctly 1`] = `
+<div>
+  <button
+    class="card"
+    style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);"
+  />
+</div>
+`;

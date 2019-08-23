@@ -1,11 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { flipCard } from "./actions";
+import { flipCard } from "../actions";
+import PropTypes from "prop-types";
 
-const Card = ({ number, id, disabled }) => {
+const Card = ({ number, id }) => {
   const isFlipped = useSelector(
     ({ state }) => state.flippedCards.includes(id) || state.solved.includes(id)
   );
+  const disabled = useSelector(({ state }) => state.disabled);
   const dispatch = useDispatch();
 
   const clickHandler = () => {
@@ -13,7 +15,7 @@ const Card = ({ number, id, disabled }) => {
   };
 
   return (
-    <div
+    <button
       className="card"
       onClick={clickHandler}
       style={{
@@ -22,7 +24,13 @@ const Card = ({ number, id, disabled }) => {
       }}
     >
       {isFlipped ? number : ""}
-    </div>
+    </button>
   );
 };
+
+Card.propTypes = {
+  number: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired
+};
+
 export default Card;

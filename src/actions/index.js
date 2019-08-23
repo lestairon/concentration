@@ -1,7 +1,8 @@
 import * as actions from "./types";
-const createBoard = numberOfCards => ({
+const createBoard = ({ numberOfCards, order }) => ({
   type: actions.CREATE_BOARD,
-  numberOfCards
+  numberOfCards,
+  order
 });
 
 const flipCard = id => ({

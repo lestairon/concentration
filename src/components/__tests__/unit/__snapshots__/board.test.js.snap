@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`correct functionality of the board displays the board correctly 1`] = `
+<div>
+  <div
+    class="board"
+  >
+    <h3
+      class="counter"
+    >
+      0
+    </h3>
+    <div
+      class="container"
+    >
+      <button
+        class="card"
+        style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);"
+      />
+      <button
+        class="card"
+        style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);"
+      />
+      <button
+        class="card"
+        style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);"
+      />
+      <button
+        class="card"
+        style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);"
+      />
+      <button
+        class="card"
+        style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);"
+      />
+      <button
+        class="card"
+        style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`correct functionality of the board shows no cards if the number is 0 1`] = `
+<div>
+  <div
+    class="board"
+  >
+    <h3
+      class="counter"
+    >
+      0
+    </h3>
+    <div
+      class="container"
+    >
+      <button>
+        Restart
+      </button>
+    </div>
+  </div>
+</div>
+`;
