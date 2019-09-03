@@ -1,27 +1,128 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`board responds correctly to state restarts the game 1`] = `
+.c3 {
+  width: 10vw;
+  height: 16vw;
+  outline: none;
+  border: 0;
+  padding: 0;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  background: #8762b8ab;
+}
+
+.c1 {
+  width: 2vw;
+  float: left;
+}
+
+.c0 {
+  background: #9deed6ab;
+  width: 50vw;
+  height: 50vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.c2 {
+  -webkit-box-pack: space-around;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: space-around;
+  justify-content: space-around;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  height: inherit;
+}
+
 <div>
   <div
-    class="board"
+    class="c0"
   >
     <h3
-      class="counter"
+      class="c1"
     >
       0
     </h3>
     <div
-      class="container"
+      class="c2"
     >
       <button
-        class="card"
-        style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);"
+        class="c3"
       />
       <button
-        class="card"
-        style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);"
+        class="c3"
       />
     </div>
   </div>
 </div>
+`;
+
+exports[`score board functionality fetch the score  1`] = `
+.c0 {
+  position: absolute;
+  top: 0;
+}
+
+<ol
+  class="c0"
+>
+  <li>
+    Player: test
+            Score: 1
+  </li>
+</ol>
+`;
+
+exports[`score board functionality updates after submitting new score 1`] = `
+.c0 {
+  -webkit-box-pack: space-around;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: space-around;
+  justify-content: space-around;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  height: inherit;
+}
+
+<div
+  class="c0"
+>
+  <div>
+    <button>
+      Restart
+    </button>
+  </div>
+</div>
+`;
+
+exports[`score board functionality updates after submitting new score 2`] = `
+.c0 {
+  position: absolute;
+  top: 0;
+}
+
+<ol
+  class="c0"
+>
+  <li>
+    Player: test
+            Score: 420
+  </li>
+</ol>
 `;

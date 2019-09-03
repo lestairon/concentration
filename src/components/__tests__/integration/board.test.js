@@ -1,36 +1,43 @@
 import * as actions from "../../../actions";
 import Board from "../../Board";
 import React from "react";
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { render, fireEvent, waitForDomChange } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "../../../reducers";
+import ScoreBoard from "../../ScoreBoard";
+import thunk from "redux-thunk";
+import "jest-styled-components";
+import { getFirestore, reduxFirestore } from "redux-firestore";
+import config from "../../../config/config";
 
-afterEach(cleanup);
-jest.useFakeTimers();
-let store;
-
-beforeEach(() => {
-  store = createStore(rootReducer);
-});
-
-const component = ({ numberofCards, order }) =>
-  render(
-    <Provider store={store}>
-      <Board numberOfCards={numberofCards} order={order} />
-    </Provider>
-  );
+const component = (
+  ui,
+  {
+    initialState,
+    store = createStore(
+      rootReducer,
+      initialState,
+      compose(
+        applyMiddleware(thunk.withExtraArgument({ getFirestore })),
+        reduxFirestore(config)
+      )
+    )
+  } = {}
+) => {
+  return { ...render(<Provider store={store}>{ui}</Provider>), store };
+};
 
 describe("board responds correctly to state", () => {
   it("finishes the game correctly", () => {
-    const { container, getByText } = component({ numberofCards: 1 });
+    const { container, getByText } = component(<Board numberOfCards={1} />);
     fireEvent.click(container.firstChild.lastChild.firstChild);
     fireEvent.click(container.firstChild.lastChild.lastChild);
     expect(getByText(/restart/i)).toBeTruthy();
   });
 
   it("restarts the game", () => {
-    const { container, getByText } = component({ numberofCards: 1 });
+    const { container, getByText } = component(<Board numberOfCards={1} />);
     fireEvent.click(container.firstChild.lastChild.firstChild);
     fireEvent.click(container.firstChild.lastChild.lastChild);
     fireEvent.click(getByText(/restart/i));
@@ -38,7 +45,7 @@ describe("board responds correctly to state", () => {
   });
 
   it("updates the move counter", () => {
-    const { container } = component({ numberofCards: 1 });
+    const { container } = component(<Board numberOfCards={1} />);
     expect(container.firstChild.firstChild.innerHTML).toBe("0");
     fireEvent.click(container.firstChild.lastChild.firstChild);
     fireEvent.click(container.firstChild.lastChild.lastChild);
@@ -46,7 +53,7 @@ describe("board responds correctly to state", () => {
   });
 
   it("disables the board when 2 cards are flipped", () => {
-    const { container } = component({ numberofCards: 2 });
+    const { container } = component(<Board numberOfCards={2} />);
     fireEvent.click(container.firstChild.lastChild.firstChild);
     fireEvent.click(container.firstChild.lastChild.lastChild);
     fireEvent.click(container.firstChild.lastChild.firstChild.nextSibling);
@@ -56,12 +63,62 @@ describe("board responds correctly to state", () => {
   });
 
   it("shows the card for a short span of time if incorrect", async () => {
-    const { container } = component({ numberofCards: 2, order: true });
+    jest.useFakeTimers();
+    const { container } = component(<Board numberOfCards={2} order={true} />);
+    jest.spyOn(actions, "runTimer").mockImplementation(() => ({ type: null }));
     fireEvent.click(container.firstChild.lastChild.firstChild);
     fireEvent.click(container.firstChild.lastChild.lastChild);
     expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 500);
     const spyResetFlipped = jest.spyOn(actions, "resetFlipped");
     jest.runAllTimers();
     expect(spyResetFlipped).toHaveBeenCalled();
+    jest.useRealTimers();
+  });
+});
+
+describe("score board functionality", () => {
+  it("fetch the score ", async () => {
+    jest.spyOn(actions, "loadScore").mockReturnValue(dispatch =>
+      setTimeout(() =>
+        dispatch({
+          type: "LOAD_SCORE",
+          data: [{ score: 1, name: "test" }]
+        })
+      )
+    );
+    const { queryByText } = component(
+      <>
+        <ScoreBoard />
+        <Board numberOfCards={3} />
+      </>
+    );
+    const scoreBoard = queryByText(/loading/i);
+    await waitForDomChange({ container: scoreBoard });
+    expect(scoreBoard).toMatchSnapshot();
+  });
+
+  it("updates after submitting new score", async () => {
+    jest
+      .spyOn(actions, "submitScore")
+      .mockReturnValue(dispatch =>
+        setTimeout(() =>
+          dispatch({ type: "SET_SCORE", data: [{ score: 420, name: "test" }] })
+        )
+      );
+    const { container, queryByText } = component(
+      <>
+        <ScoreBoard />
+        <Board numberOfCards={1} />
+      </>
+    );
+    const cardContainer = container.lastChild.lastChild;
+    fireEvent.click(cardContainer.firstChild);
+    fireEvent.click(cardContainer.lastChild);
+    const submitButton = queryByText(/submit score/i);
+    expect(submitButton).toBeTruthy();
+    fireEvent.click(submitButton);
+    await waitForDomChange({ container: cardContainer });
+    expect(cardContainer).toMatchSnapshot();
+    expect(container.firstChild).toMatchSnapshot();
   });
 });

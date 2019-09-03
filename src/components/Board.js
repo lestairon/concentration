@@ -4,27 +4,45 @@ import Counter from "./Counter";
 import Menu from "./Menu";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
 import {
   createBoard,
   toggleDisabled,
   setSolved,
   incrementMoves,
   toggleMenu,
-  resetFlipped
+  resetFlipped,
+  stopTimer
 } from "../actions";
+
+const BoardDiv = styled.div`
+  background: #9deed6ab;
+  width: 50vw;
+  height: 50vw;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const ContainerDiv = styled.div`
+  justify-content: space-around;
+  flex-direction: column;
+  display: flex;
+  flex-wrap: wrap;
+  height: inherit;
+`;
 
 const Board = ({ numberOfCards, order }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(createBoard({ numberOfCards, order }));
-  }, []);
+  }, [dispatch, numberOfCards, order]);
 
-  const cards = useSelector(({ state }) => state.cards);
-  const flippedCards = useSelector(({ state }) => state.flippedCards);
-  const solved = useSelector(({ state }) => state.solved);
-  const moveCount = useSelector(({ state }) => state.moveCount);
-  const showMenu = useSelector(({ state }) => state.showMenu);
+  const cards = useSelector(({ boardState }) => boardState.cards);
+  const flippedCards = useSelector(({ boardState }) => boardState.flippedCards);
+  const solved = useSelector(({ boardState }) => boardState.solved);
+  const moveCount = useSelector(({ boardState }) => boardState.moveCount);
+  const showMenu = useSelector(({ boardState }) => boardState.showMenu);
 
   const cleanState = () => {
     dispatch(createBoard({ numberOfCards }));
@@ -51,14 +69,15 @@ const Board = ({ numberOfCards, order }) => {
 
   useEffect(() => {
     if (solved.length === cards.length) {
+      dispatch(stopTimer());
       dispatch(toggleMenu());
     }
-  }, [solved]);
+  }, [solved, cards, dispatch]);
 
   return (
-    <div className="board">
+    <BoardDiv>
       <Counter moveCount={moveCount} />
-      <div className="container">
+      <ContainerDiv>
         {showMenu ? (
           <Menu cleanState={cleanState} />
         ) : (
@@ -66,8 +85,8 @@ const Board = ({ numberOfCards, order }) => {
             <Card number={value} key={key} id={key} />
           ))
         )}
-      </div>
-    </div>
+      </ContainerDiv>
+    </BoardDiv>
   );
 };
 

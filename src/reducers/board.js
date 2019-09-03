@@ -1,4 +1,4 @@
-import * as actions from "../actions/types";
+import * as actions from "../constants/actionTypes";
 
 const initialState = {
   cards: [],
@@ -6,7 +6,8 @@ const initialState = {
   disabled: false,
   solved: [""],
   moveCount: 0,
-  showMenu: false
+  showMenu: false,
+  numberOfCards: 0
 };
 
 const boardReducer = (state = initialState, action) => {
@@ -25,7 +26,12 @@ const boardReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.CREATE_BOARD: {
       const cards = createCards(action.numberOfCards, action.order);
-      return { ...initialState, cards, solved: [] };
+      return {
+        ...initialState,
+        cards,
+        solved: [],
+        numberOfCards: action.numberOfCards
+      };
     }
 
     case actions.RESET_FLIPPED:

@@ -1,13 +1,15 @@
 import Card from "../../Card";
 import React from "react";
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import rootReducer from "../../../reducers";
-
-afterEach(cleanup);
+import "jest-styled-components";
+import * as actions from "../../../actions";
 
 const mockStore = createStore(rootReducer);
+
+jest.spyOn(actions, "runTimer").mockReturnValue({ type: null });
 
 const component = (number, id) =>
   render(

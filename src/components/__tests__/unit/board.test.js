@@ -1,11 +1,10 @@
 import Board from "../../Board";
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import rootReducer from "../../../reducers";
-
-afterEach(cleanup);
+import "jest-styled-components";
 
 const mockStore = createStore(rootReducer);
 
