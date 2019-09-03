@@ -1,10 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`card functionality card renders correctly 1`] = `
+.c0 {
+  width: 10vw;
+  height: 16vw;
+  outline: none;
+  border: 0;
+  padding: 0;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  background: #8762b8ab;
+}
+
 <div>
   <button
-    class="card"
-    style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);"
+    class="c0"
   />
 </div>
 `;
