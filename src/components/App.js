@@ -9,11 +9,9 @@ import thunk from "redux-thunk";
 import { getFirestore, reduxFirestore } from "redux-firestore";
 import config from "../config/config";
 
-const enchancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
 const store = createStore(
   rootReducer,
-  enchancers(
+  compose(
     applyMiddleware(thunk.withExtraArgument({ getFirestore })),
     reduxFirestore(config)
   )
