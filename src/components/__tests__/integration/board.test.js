@@ -9,7 +9,7 @@ import ScoreBoard from "../../ScoreBoard";
 import thunk from "redux-thunk";
 import "jest-styled-components";
 import { getFirestore, reduxFirestore } from "redux-firestore";
-import config from "../../../config/config";
+import config, { firestoreDB } from "../../../config/config";
 
 const component = (
   ui,
@@ -77,15 +77,25 @@ describe("board responds correctly to state", () => {
 });
 
 describe("score board functionality", () => {
+  const mock = score =>
+    jest.spyOn(firestoreDB, "collection").mockImplementation(() => ({
+      add: () => Promise.resolve(),
+      onSnapshot: cb => {
+        setTimeout(() =>
+          cb({
+            docChanges: () => [
+              {
+                type: "added",
+                doc: { data: () => ({ name: "test", score }) }
+              }
+            ]
+          })
+        );
+      }
+    }));
+
   it("fetch the score ", async () => {
-    jest.spyOn(actions, "loadScore").mockReturnValue(dispatch =>
-      setTimeout(() =>
-        dispatch({
-          type: "LOAD_SCORE",
-          data: [{ score: 1, name: "test" }]
-        })
-      )
-    );
+    mock(1);
     const { queryByText } = component(
       <>
         <ScoreBoard />
@@ -98,13 +108,7 @@ describe("score board functionality", () => {
   });
 
   it("updates after submitting new score", async () => {
-    jest
-      .spyOn(actions, "submitScore")
-      .mockReturnValue(dispatch =>
-        setTimeout(() =>
-          dispatch({ type: "SET_SCORE", data: [{ score: 420, name: "test" }] })
-        )
-      );
+    mock(420);
     const { container, queryByText } = component(
       <>
         <ScoreBoard />

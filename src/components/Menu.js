@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useSelector, useDispatch } from "react-redux";
-import { submitScore } from "../actions";
+import { useSelector } from "react-redux";
+import { firestoreDB } from "../config/config";
 
 const Menu = ({ cleanState }) => {
   const clickHandler = () => {
     cleanState();
   };
-  const dispatch = useDispatch();
+  const [submitted, setSubmitted] = useState(false);
 
   const { moveCount, numberOfCards } = useSelector(
     ({ boardState }) => boardState
@@ -17,10 +17,20 @@ const Menu = ({ cleanState }) => {
   );
 
   const submit = () => {
-    const score = time * moveCount;
-    dispatch(submitScore({ score, numberOfCards, moveCount, time }));
+    firestoreDB
+      .collection("scores")
+      .add({
+        card_pairs: numberOfCards,
+        date: new Date(),
+        moves: moveCount,
+        name: "defaultUser",
+        score: 100 / moveCount + 100 / time,
+        time: time / 1000
+      })
+      .then(() => {
+        setSubmitted(true);
+      });
   };
-  const { submitted } = useSelector(({ scoreBoard }) => scoreBoard);
 
   return (
     <div>
