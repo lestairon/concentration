@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { loadScore } from "../actions";
+import { firestoreDB } from "../config/config";
 
 const List = styled.ol`
   position: absolute;
@@ -9,16 +8,34 @@ const List = styled.ol`
 `;
 
 const ScoreBoard = () => {
-  const score = useSelector(({ scoreBoard }) => scoreBoard.score);
-  const dispatch = useDispatch();
+  const [score, setScore] = useState([]);
 
   useEffect(() => {
-    dispatch(loadScore());
-  }, [dispatch]);
+    const data = firestoreDB.collection("scores");
+    data.onSnapshot(QuerySnapshot => {
+      QuerySnapshot.docChanges().forEach(change => {
+        switch (change.type) {
+          case "added":
+            setScore(prevState => [
+              ...prevState,
+              { ...change.doc.data(), id: change.doc.id }
+            ]);
+            break;
+          case "removed":
+            setScore(prevState =>
+              prevState.filter(score => score.id !== change.doc.id)
+            );
+            break;
+          default:
+            return;
+        }
+      });
+    });
+  }, []);
 
   return (
     <List>
-      {score
+      {score.length
         ? score
             .sort((a, b) => b.score - a.score)
             .map(({ name, score }, i) => (
