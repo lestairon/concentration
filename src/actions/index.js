@@ -38,7 +38,7 @@ const runTimer = () => {
     let timer = () => {
       if (getState().timer.running) {
         dispatch({ type: actions.TIME, time: Date.now() });
-        setTimeout(timer, 10);
+        setTimeout(timer, 1000);
       }
     };
     timer();

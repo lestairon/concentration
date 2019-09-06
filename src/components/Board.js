@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import Card from "./Card";
 import Counter from "./Counter";
+import Timer from "./Timer";
 import Menu from "./Menu";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import styled from "styled-components";
+import { BoardDiv, CardContainerDiv } from "./components";
 import {
   createBoard,
   toggleDisabled,
@@ -14,22 +15,6 @@ import {
   resetFlipped,
   stopTimer
 } from "../actions";
-
-const BoardDiv = styled.div`
-  background: #9deed6ab;
-  width: 50vw;
-  height: 50vw;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
-const ContainerDiv = styled.div`
-  justify-content: space-around;
-  flex-direction: column;
-  display: flex;
-  flex-wrap: wrap;
-  height: inherit;
-`;
 
 const Board = ({ numberOfCards, order }) => {
   const dispatch = useDispatch();
@@ -61,7 +46,7 @@ const Board = ({ numberOfCards, order }) => {
       setTimeout(() => {
         dispatch(resetFlipped());
         dispatch(toggleDisabled());
-      }, 500);
+      }, 800);
     }
   };
 
@@ -70,28 +55,32 @@ const Board = ({ numberOfCards, order }) => {
   useEffect(() => {
     if (solved.length === cards.length) {
       dispatch(stopTimer());
-      dispatch(toggleMenu());
+      setTimeout(() => {
+        dispatch(toggleMenu());
+      }, 850);
     }
   }, [solved, cards, dispatch]);
 
   return (
     <BoardDiv>
       <Counter moveCount={moveCount} />
-      <ContainerDiv>
-        {showMenu ? (
-          <Menu cleanState={cleanState} />
-        ) : (
-          cards.map(({ value, key }) => (
+      {showMenu ? (
+        <Menu cleanState={cleanState} />
+      ) : (
+        <CardContainerDiv numberOfCards={numberOfCards}>
+          {cards.map(({ value, key }) => (
             <Card number={value} key={key} id={key} />
-          ))
-        )}
-      </ContainerDiv>
+          ))}
+        </CardContainerDiv>
+      )}
+      <Timer />
     </BoardDiv>
   );
 };
 
 Board.propTypes = {
-  numberOfCards: PropTypes.number.isRequired,
+  numberOfCards: x =>
+    isFinite(x) && typeof x === "number" && Math.floor(x) === x && x,
   order: PropTypes.bool
 };
 

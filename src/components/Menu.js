@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { firestoreDB } from "../config/config";
+import { MenuDiv, ButtonMenu } from "./components";
+import ScoreBoard from "./ScoreBoard";
 
 const Menu = ({ cleanState }) => {
   const clickHandler = () => {
@@ -33,10 +35,11 @@ const Menu = ({ cleanState }) => {
   };
 
   return (
-    <div>
-      <button onClick={clickHandler}>Restart</button>
-      {!submitted && <button onClick={submit}>Submit score?</button>}
-    </div>
+    <MenuDiv>
+      <ScoreBoard />
+      <ButtonMenu onClick={clickHandler}>Restart</ButtonMenu>
+      {!submitted && <ButtonMenu onClick={submit}>Submit score?</ButtonMenu>}
+    </MenuDiv>
   );
 };
 

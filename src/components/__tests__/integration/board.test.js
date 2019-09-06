@@ -5,7 +5,6 @@ import { render, fireEvent, waitForDomChange } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "../../../reducers";
-import ScoreBoard from "../../ScoreBoard";
 import thunk from "redux-thunk";
 import "jest-styled-components";
 import { getFirestore, reduxFirestore } from "redux-firestore";
@@ -29,17 +28,21 @@ const component = (
 };
 
 describe("board responds correctly to state", () => {
-  it("finishes the game correctly", () => {
+  it("finishes the game correctly", async () => {
     const { container, getByText } = component(<Board numberOfCards={1} />);
-    fireEvent.click(container.firstChild.lastChild.firstChild);
-    fireEvent.click(container.firstChild.lastChild.lastChild);
+    const cards = container.firstChild.firstChild.nextSibling;
+    fireEvent.click(cards.firstChild);
+    fireEvent.click(cards.lastChild);
+    await waitForDomChange({ container });
     expect(getByText(/restart/i)).toBeTruthy();
   });
 
-  it("restarts the game", () => {
+  it("restarts the game", async () => {
     const { container, getByText } = component(<Board numberOfCards={1} />);
-    fireEvent.click(container.firstChild.lastChild.firstChild);
-    fireEvent.click(container.firstChild.lastChild.lastChild);
+    const cards = container.firstChild.firstChild.nextSibling;
+    fireEvent.click(cards.firstChild);
+    fireEvent.click(cards.lastChild);
+    await waitForDomChange({ container });
     fireEvent.click(getByText(/restart/i));
     expect(container).toMatchSnapshot();
   });
@@ -47,28 +50,29 @@ describe("board responds correctly to state", () => {
   it("updates the move counter", () => {
     const { container } = component(<Board numberOfCards={1} />);
     expect(container.firstChild.firstChild.innerHTML).toBe("0");
-    fireEvent.click(container.firstChild.lastChild.firstChild);
-    fireEvent.click(container.firstChild.lastChild.lastChild);
+    const cards = container.firstChild.firstChild.nextSibling;
+    fireEvent.click(cards.firstChild);
+    fireEvent.click(cards.lastChild);
     expect(container.firstChild.firstChild.innerHTML).toBe("1");
   });
 
   it("disables the board when 2 cards are flipped", () => {
     const { container } = component(<Board numberOfCards={2} />);
-    fireEvent.click(container.firstChild.lastChild.firstChild);
-    fireEvent.click(container.firstChild.lastChild.lastChild);
-    fireEvent.click(container.firstChild.lastChild.firstChild.nextSibling);
-    expect(
-      container.firstChild.lastChild.firstChild.nextSibling.innerHTML
-    ).toBe("");
+    const cards = container.firstChild.firstChild.nextSibling;
+    fireEvent.click(cards.firstChild);
+    fireEvent.click(cards.lastChild);
+    fireEvent.click(cards.firstChild.nextSibling);
+    expect(cards.firstChild.nextSibling.innerHTML).toBe("");
   });
 
   it("shows the card for a short span of time if incorrect", async () => {
     jest.useFakeTimers();
     const { container } = component(<Board numberOfCards={2} order={true} />);
+    const cards = container.firstChild.firstChild.nextSibling;
     jest.spyOn(actions, "runTimer").mockImplementation(() => ({ type: null }));
-    fireEvent.click(container.firstChild.lastChild.firstChild);
-    fireEvent.click(container.firstChild.lastChild.lastChild);
-    expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 500);
+    fireEvent.click(cards.firstChild);
+    fireEvent.click(cards.lastChild);
+    expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 800);
     const spyResetFlipped = jest.spyOn(actions, "resetFlipped");
     jest.runAllTimers();
     expect(spyResetFlipped).toHaveBeenCalled();
@@ -79,50 +83,43 @@ describe("board responds correctly to state", () => {
 describe("score board functionality", () => {
   const mock = score =>
     jest.spyOn(firestoreDB, "collection").mockImplementation(() => ({
-      add: () => Promise.resolve(),
-      onSnapshot: cb => {
-        setTimeout(() =>
-          cb({
-            docChanges: () => [
-              {
-                type: "added",
-                doc: { data: () => ({ name: "test", score }) }
-              }
-            ]
-          })
-        );
-      }
+      limit: () => ({
+        onSnapshot: cb => {
+          setTimeout(() =>
+            cb({
+              docChanges: () => [
+                {
+                  type: "added",
+                  doc: { data: () => ({ name: "test", score }) }
+                }
+              ]
+            })
+          );
+        }
+      }),
+      add: () => Promise.resolve()
     }));
 
   it("fetch the score ", async () => {
     mock(1);
-    const { queryByText } = component(
-      <>
-        <ScoreBoard />
-        <Board numberOfCards={3} />
-      </>
-    );
-    const scoreBoard = queryByText(/loading/i);
-    await waitForDomChange({ container: scoreBoard });
+    const { container } = component(<Board numberOfCards={0} />);
+    await waitForDomChange({ container });
+    const scoreBoard = container.firstChild.firstChild.nextSibling.firstChild;
     expect(scoreBoard).toMatchSnapshot();
   });
 
   it("updates after submitting new score", async () => {
     mock(420);
-    const { container, queryByText } = component(
-      <>
-        <ScoreBoard />
-        <Board numberOfCards={1} />
-      </>
-    );
-    const cardContainer = container.lastChild.lastChild;
-    fireEvent.click(cardContainer.firstChild);
-    fireEvent.click(cardContainer.lastChild);
+    const { container, queryByText } = component(<Board numberOfCards={1} />);
+    const cards = container.firstChild.firstChild.nextSibling;
+    fireEvent.click(cards.firstChild);
+    fireEvent.click(cards.lastChild);
+    await waitForDomChange({ container });
     const submitButton = queryByText(/submit score/i);
     expect(submitButton).toBeTruthy();
     fireEvent.click(submitButton);
-    await waitForDomChange({ container: cardContainer });
-    expect(cardContainer).toMatchSnapshot();
-    expect(container.firstChild).toMatchSnapshot();
+    await waitForDomChange({ container });
+    const scoreBoard = container.firstChild.firstChild.nextSibling.firstChild;
+    expect(scoreBoard).toMatchSnapshot();
   });
 });

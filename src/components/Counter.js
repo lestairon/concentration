@@ -1,11 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
-
-const CounterH3 = styled.h3`
-  width: 2vw;
-  float: left;
-`;
+import { CounterH3 } from "./components";
 
 const Counter = ({ moveCount }) => {
   return <CounterH3>{moveCount}</CounterH3>;

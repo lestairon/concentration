@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import { ScoreList, ScoreListElement } from "./components";
 import { firestoreDB } from "../config/config";
-
-const List = styled.ol`
-  position: absolute;
-  top: 0;
-`;
 
 const ScoreBoard = () => {
   const [score, setScore] = useState([]);
 
   useEffect(() => {
-    const data = firestoreDB.collection("scores");
-    data.onSnapshot(QuerySnapshot => {
+    const data = firestoreDB.collection("scores").limit(3);
+    const unsub = data.onSnapshot(QuerySnapshot => {
       QuerySnapshot.docChanges().forEach(change => {
         switch (change.type) {
           case "added":
@@ -31,19 +26,21 @@ const ScoreBoard = () => {
         }
       });
     });
+    return unsub;
   }, []);
 
   return (
-    <List>
+    <ScoreList>
+      Top 3 players:
       {score.length
         ? score
             .sort((a, b) => b.score - a.score)
             .map(({ name, score }, i) => (
-              <li key={i}>{`Player: ${name}
-            Score: ${score.toLocaleString()}`}</li>
+              <ScoreListElement key={i}>{`Player: ${name}
+            Score: ${score.toLocaleString()}`}</ScoreListElement>
             ))
         : "Loading..."}
-    </List>
+    </ScoreList>
   );
 };
 export default ScoreBoard;
