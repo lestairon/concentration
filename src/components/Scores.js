@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { ScoreList, ScoreListElement } from "./components";
 import { firestoreDB } from "../config/config";
 
-const ScoreBoard = () => {
+const Scores = () => {
   const [score, setScore] = useState([]);
 
   useEffect(() => {
-    const data = firestoreDB.collection("scores").limit(3);
-    const unsub = data.onSnapshot(QuerySnapshot => {
+    const database = firestoreDB.collection("scores").limit(3);
+    const removeListener = database.onSnapshot(QuerySnapshot => {
       QuerySnapshot.docChanges().forEach(change => {
         switch (change.type) {
           case "added":
@@ -26,7 +26,7 @@ const ScoreBoard = () => {
         }
       });
     });
-    return unsub;
+    return removeListener;
   }, []);
 
   return (
@@ -43,4 +43,4 @@ const ScoreBoard = () => {
     </ScoreList>
   );
 };
-export default ScoreBoard;
+export default Scores;

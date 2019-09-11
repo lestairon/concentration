@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import Card from "./Card";
-import Counter from "./Counter";
-import Timer from "./Timer";
+import MoveCounter from "./MoveCounter";
+import Stopwatch from "./Stopwatch";
 import Menu from "./Menu";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import { BoardDiv, CardContainerDiv } from "./components";
+import * as S from "./components";
 import {
   createBoard,
   toggleDisabled,
@@ -16,7 +16,7 @@ import {
   stopTimer
 } from "../actions";
 
-const Board = ({ numberOfCards, order }) => {
+const Main = ({ numberOfCards, order }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -62,26 +62,26 @@ const Board = ({ numberOfCards, order }) => {
   }, [solved, cards, dispatch]);
 
   return (
-    <BoardDiv>
-      <Counter moveCount={moveCount} />
+    <S.Main>
+      <MoveCounter moveCount={moveCount} />
       {showMenu ? (
         <Menu cleanState={cleanState} />
       ) : (
-        <CardContainerDiv numberOfCards={numberOfCards}>
+        <S.Board numberOfCards={numberOfCards}>
           {cards.map(({ value, key }) => (
             <Card number={value} key={key} id={key} />
           ))}
-        </CardContainerDiv>
+        </S.Board>
       )}
-      <Timer />
-    </BoardDiv>
+      <Stopwatch />
+    </S.Main>
   );
 };
 
-Board.propTypes = {
+Main.propTypes = {
   numberOfCards: x =>
     isFinite(x) && typeof x === "number" && Math.floor(x) === x && x,
   order: PropTypes.bool
 };
 
-export default Board;
+export default Main;

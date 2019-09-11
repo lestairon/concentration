@@ -1,5 +1,5 @@
 import * as actions from "../../../actions";
-import Board from "../../Board";
+import Board from "../../Main";
 import React from "react";
 import { render, fireEvent, waitForDomChange } from "@testing-library/react";
 import { Provider } from "react-redux";

@@ -1,4 +1,4 @@
-import Board from "./Board";
+import Main from "./Main";
 import React from "react";
 import { createStore, applyMiddleware, compose } from "redux";
 import rootReducer from "../reducers";
@@ -18,7 +18,7 @@ const store = createStore(
 const App = () => {
   return (
     <Provider store={store}>
-      <Board numberOfCards={3} />
+      <Main numberOfCards={3} />
     </Provider>
   );
 };

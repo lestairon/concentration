@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const BoardDiv = styled.div`
+const Main = styled.div`
   background: #f3f3f3;
   border-radius: 10px;
   @media (min-width: 1025px) {
@@ -13,18 +13,18 @@ const BoardDiv = styled.div`
   }
 `;
 
-const CardContainerDiv = styled.div`
+const Board = styled.div`
   display: flex;
   height: inherit;
   flex-flow: wrap;
   justify-content: center;
 `;
-const CounterH3 = styled.h3`
+const MoveCounter = styled.h3`
   position: absolute;
   font-family: Nunito;
 `;
 
-const CardDiv = styled.div`
+const Card = styled.div`
   @import url("https://fonts.googleapis.com/css?family=Nunito&display=swap");
   display: flex;
   flex-wrap: wrap;
@@ -56,7 +56,7 @@ const CardDiv = styled.div`
   }
 `;
 
-const MenuDiv = styled.div`
+const Menu = styled.div`
   text-align: center;
   margin: auto;
   background-color: #fff;
@@ -69,7 +69,7 @@ const MenuDiv = styled.div`
   min-width: 288px;
 `;
 
-const ButtonMenu = styled.button`
+const Button = styled.button`
   position: relative;
   margin: 30px auto;
   cursor: pointer;
@@ -128,20 +128,20 @@ const ScoreListElement = styled.li`
   }
 `;
 
-const TimerDiv = styled.div`
+const Time = styled.div`
   font-family: Nunito;
   position: fixed;
   bottom: 0;
 `;
 
 export {
-  CardContainerDiv,
-  BoardDiv,
-  CounterH3,
-  CardDiv,
-  MenuDiv,
-  ButtonMenu,
+  Board,
+  Main,
+  MoveCounter,
+  Card,
+  Menu,
+  Button,
   ScoreList,
   ScoreListElement,
-  TimerDiv
+  Time
 };
