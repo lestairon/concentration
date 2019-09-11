@@ -1,12 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Time } from "./components";
+import { StyledStopwatch } from "./components";
 
 const Stopwatch = () => {
   const time = useSelector(
     ({ timer: { initialTime, passedTime } }) => passedTime - initialTime
   );
-  return <Time>{`Seconds ${Math.floor(time / 1000)}`}</Time>;
+  return (
+    <StyledStopwatch>{`Seconds ${Math.floor(time / 1000)}`}</StyledStopwatch>
+  );
 };
 
 export default Stopwatch;

@@ -5,7 +5,7 @@ import Stopwatch from "./Stopwatch";
 import Menu from "./Menu";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import * as S from "./components";
+import { StyledMain, StyledBoard } from "./components";
 import {
   createBoard,
   toggleDisabled,
@@ -15,7 +15,6 @@ import {
   resetFlipped,
   stopTimer
 } from "../actions";
-
 const Main = ({ numberOfCards, order }) => {
   const dispatch = useDispatch();
 
@@ -62,19 +61,19 @@ const Main = ({ numberOfCards, order }) => {
   }, [solved, cards, dispatch]);
 
   return (
-    <S.Main>
+    <StyledMain>
       <MoveCounter moveCount={moveCount} />
       {showMenu ? (
         <Menu cleanState={cleanState} />
       ) : (
-        <S.Board numberOfCards={numberOfCards}>
+        <StyledBoard numberOfCards={numberOfCards}>
           {cards.map(({ value, key }) => (
             <Card number={value} key={key} id={key} />
           ))}
-        </S.Board>
+        </StyledBoard>
       )}
       <Stopwatch />
-    </S.Main>
+    </StyledMain>
   );
 };
 

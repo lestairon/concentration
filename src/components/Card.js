@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { flipCard, runTimer } from "../actions";
 import PropTypes from "prop-types";
-import * as S from "./components";
+import { StyledCard } from "./components";
 
 const Card = ({ number, id }) => {
   const isFlipped = useSelector(
@@ -19,13 +19,13 @@ const Card = ({ number, id }) => {
   };
 
   return (
-    <S.Card
+    <StyledCard
       isFlipped={isFlipped}
       onClick={clickHandler}
       className={isFlipped && "active"}
     >
       {isFlipped && number}
-    </S.Card>
+    </StyledCard>
   );
 };
 

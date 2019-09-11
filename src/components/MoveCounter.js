@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import * as S from "./components";
+import { StyledMoveCounter } from "./components";
 
 const MoveCounter = ({ moveCount }) => {
-  return <S.MoveCounter>{moveCount}</S.MoveCounter>;
+  return <StyledMoveCounter>{moveCount}</StyledMoveCounter>;
 };
 
 MoveCounter.propTypes = {

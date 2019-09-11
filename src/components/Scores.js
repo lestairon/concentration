@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScoreList, ScoreListElement } from "./components";
+import { StyledScoreList, StyledScoreListElement } from "./components";
 import { firestoreDB } from "../config/config";
 
 const Scores = () => {
@@ -30,17 +30,17 @@ const Scores = () => {
   }, []);
 
   return (
-    <ScoreList>
+    <StyledScoreList>
       Top 3 players:
       {score.length
         ? score
             .sort((a, b) => b.score - a.score)
             .map(({ name, score }, i) => (
-              <ScoreListElement key={i}>{`Player: ${name}
-            Score: ${score.toLocaleString()}`}</ScoreListElement>
+              <StyledScoreListElement key={i}>{`Player: ${name}
+            Score: ${score.toLocaleString()}`}</StyledScoreListElement>
             ))
         : "Loading..."}
-    </ScoreList>
+    </StyledScoreList>
   );
 };
 export default Scores;

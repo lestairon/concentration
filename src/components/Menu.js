@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { firestoreDB } from "../config/config";
-import * as S from "./components";
+import { StyledMenu, StyledButton } from "./components";
 import Scores from "./Scores";
 
 const Menu = ({ cleanState }) => {
@@ -35,11 +35,13 @@ const Menu = ({ cleanState }) => {
   };
 
   return (
-    <S.Menu>
+    <StyledMenu>
       <Scores />
-      <S.Button onClick={clickHandler}>Restart</S.Button>
-      {!submitted && <S.Button onClick={submit}>Submit score?</S.Button>}
-    </S.Menu>
+      <StyledButton onClick={clickHandler}>Restart</StyledButton>
+      {!submitted && (
+        <StyledButton onClick={submit}>Submit score?</StyledButton>
+      )}
+    </StyledMenu>
   );
 };
 

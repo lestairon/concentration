@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Main = styled.div`
+const StyledMain = styled.div`
   background: #f3f3f3;
   border-radius: 10px;
   @media (min-width: 1025px) {
@@ -13,18 +13,18 @@ const Main = styled.div`
   }
 `;
 
-const Board = styled.div`
+const StyledBoard = styled.div`
   display: flex;
   height: inherit;
   flex-flow: wrap;
   justify-content: center;
 `;
-const MoveCounter = styled.h3`
+const StyledMoveCounter = styled.h3`
   position: absolute;
   font-family: Nunito;
 `;
 
-const Card = styled.div`
+const StyledCard = styled.div`
   @import url("https://fonts.googleapis.com/css?family=Nunito&display=swap");
   display: flex;
   flex-wrap: wrap;
@@ -56,7 +56,7 @@ const Card = styled.div`
   }
 `;
 
-const Menu = styled.div`
+const StyledMenu = styled.div`
   text-align: center;
   margin: auto;
   background-color: #fff;
@@ -69,7 +69,7 @@ const Menu = styled.div`
   min-width: 288px;
 `;
 
-const Button = styled.button`
+const StyledButton = styled.button`
   position: relative;
   margin: 30px auto;
   cursor: pointer;
@@ -107,7 +107,7 @@ const Button = styled.button`
   }
 `;
 
-const ScoreList = styled.ol`
+const StyledScoreList = styled.ol`
   font-family: Nunito;
   grid-column-start: 1;
   grid-column-end: 3;
@@ -118,7 +118,7 @@ const ScoreList = styled.ol`
   padding-left: 0;
 `;
 
-const ScoreListElement = styled.li`
+const StyledScoreListElement = styled.li`
   &::before {
     content: "";
     width: 65%;
@@ -128,20 +128,20 @@ const ScoreListElement = styled.li`
   }
 `;
 
-const Time = styled.div`
+const StyledStopwatch = styled.div`
   font-family: Nunito;
   position: fixed;
   bottom: 0;
 `;
 
 export {
-  Board,
-  Main,
-  MoveCounter,
-  Card,
-  Menu,
-  Button,
-  ScoreList,
-  ScoreListElement,
-  Time
+  StyledBoard,
+  StyledMain,
+  StyledMoveCounter,
+  StyledCard,
+  StyledMenu,
+  StyledButton,
+  StyledScoreList,
+  StyledScoreListElement,
+  StyledStopwatch
 };
