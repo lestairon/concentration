@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import { firestoreDB } from "../config/config";
-import { StyledMenu, StyledButton } from "./components";
-import Scores from "./Scores";
+import { firestoreDB } from "../../config/config";
+import { StyledMenu, StyledButton } from "../components";
+import Scores from "../Scores";
 
 const Menu = ({ cleanState }) => {
   const clickHandler = () => {

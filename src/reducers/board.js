@@ -6,8 +6,8 @@ const initialState = {
   disabled: false,
   solved: [""],
   moveCount: 0,
-  showMenu: false,
-  pairOfCards: 0
+  pairOfCards: 0,
+  gameState: "started"
 };
 
 const boardReducer = (state = initialState, action) => {
@@ -23,6 +23,12 @@ const boardReducer = (state = initialState, action) => {
     return array.sort(() => Math.random() - 0.5);
   };
 
+  const states = {
+    started: { next: "inProgress" },
+    inProgress: { next: "finished" },
+    finished: { next: "started" }
+  };
+
   switch (action.type) {
     case actions.CREATE_BOARD: {
       const cards = createCards(action.pairOfCards, action.ordered);
@@ -33,6 +39,9 @@ const boardReducer = (state = initialState, action) => {
         pairOfCards: action.pairOfCards
       };
     }
+
+    case actions.RESET_GAME:
+      return { ...initialState, gameState: states[state.gameState].next };
 
     case actions.RESET_FLIPPED:
       return { ...state, flippedCards: [] };
@@ -49,8 +58,9 @@ const boardReducer = (state = initialState, action) => {
     case actions.INCREMENT_MOVES:
       return { ...state, moveCount: state.moveCount + 1 };
 
-    case actions.TOGGLE_MENU:
-      return { ...state, showMenu: !state.showMenu };
+    case actions.UPDATE_GAME: {
+      return { ...state, gameState: states[state.gameState].next };
+    }
 
     default:
       return state;

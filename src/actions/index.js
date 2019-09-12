@@ -28,10 +28,6 @@ const resetFlipped = () => ({
   type: actions.RESET_FLIPPED
 });
 
-const toggleMenu = () => ({
-  type: actions.TOGGLE_MENU
-});
-
 const runTimer = () => {
   return (dispatch, getState) => {
     dispatch({ type: actions.RUN_TIMER, time: Date.now() });
@@ -49,14 +45,23 @@ const stopTimer = () => ({
   type: actions.STOP_TIMER
 });
 
+const deleteCards = () => ({
+  type: actions.RESET_GAME
+});
+
+const updateGame = () => ({
+  type: actions.UPDATE_GAME
+});
+
 export {
   createBoard,
   toggleDisabled,
   setSolved,
   incrementMoves,
-  toggleMenu,
   flipCard,
   resetFlipped,
   runTimer,
-  stopTimer
+  stopTimer,
+  deleteCards,
+  updateGame
 };

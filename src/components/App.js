@@ -7,9 +7,11 @@ import thunk from "redux-thunk";
 import { getFirestore, reduxFirestore } from "redux-firestore";
 import config from "../config/config";
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
   rootReducer,
-  compose(
+  composeEnhancers(
     applyMiddleware(thunk.withExtraArgument({ getFirestore })),
     reduxFirestore(config)
   )
@@ -18,7 +20,7 @@ const store = createStore(
 const App = () => {
   return (
     <Provider store={store}>
-      <Main pairOfCards={6} />
+      <Main />
     </Provider>
   );
 };
