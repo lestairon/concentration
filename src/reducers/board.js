@@ -25,7 +25,7 @@ const boardReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case actions.CREATE_BOARD: {
-      const cards = createCards(action.numberOfCards, action.order);
+      const cards = createCards(action.numberOfCards, action.ordered);
       return {
         ...initialState,
         cards,

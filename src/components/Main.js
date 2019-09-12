@@ -15,18 +15,16 @@ import {
   resetFlipped,
   stopTimer
 } from "../actions";
-const Main = ({ numberOfCards, order }) => {
+const Main = ({ numberOfCards, ordered }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(createBoard({ numberOfCards, order }));
-  }, [dispatch, numberOfCards, order]);
+    dispatch(createBoard({ numberOfCards, ordered }));
+  }, [dispatch, numberOfCards, ordered]);
 
-  const cards = useSelector(({ boardState }) => boardState.cards);
-  const flippedCards = useSelector(({ boardState }) => boardState.flippedCards);
-  const solved = useSelector(({ boardState }) => boardState.solved);
-  const moveCount = useSelector(({ boardState }) => boardState.moveCount);
-  const showMenu = useSelector(({ boardState }) => boardState.showMenu);
+  const { showMenu, moveCount, solved, flippedCards, cards } = useSelector(
+    ({ boardState }) => boardState
+  );
 
   const cleanState = () => {
     dispatch(createBoard({ numberOfCards }));
@@ -80,7 +78,7 @@ const Main = ({ numberOfCards, order }) => {
 Main.propTypes = {
   numberOfCards: x =>
     isFinite(x) && typeof x === "number" && Math.floor(x) === x && x,
-  order: PropTypes.bool
+  ordered: PropTypes.bool
 };
 
 export default Main;

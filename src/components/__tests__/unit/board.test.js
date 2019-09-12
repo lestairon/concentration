@@ -1,4 +1,4 @@
-import Board from "../../Main";
+import Main from "../../Main";
 import React from "react";
 import { render } from "@testing-library/react";
 import { Provider } from "react-redux";
@@ -11,7 +11,7 @@ const mockStore = createStore(rootReducer);
 const component = numberofCards =>
   render(
     <Provider store={mockStore}>
-      <Board numberOfCards={numberofCards} />
+      <Main numberOfCards={numberofCards} />
     </Provider>
   );
 
