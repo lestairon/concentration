@@ -8,10 +8,18 @@ exports[`renders correctly the Main component 1`] = `
 }
 
 .c2 {
+  --number-of-rows: 3;
+  --number-of-columns: 4;
+  -webkit-flex: 1vmin;
+  -ms-flex: 1vmin;
+  flex: 1vmin;
   display: grid;
-  height: inherit;
-  grid-template-columns: repeat( 6, 26.5vmin );
-  grid-row-gap: 0.4%;
+  grid-template-rows: repeat( var(--number-of-rows), calc(85vmin / var(--number-of-rows)) );
+  grid-template-columns: repeat( var(--number-of-columns), calc(65vmin / var(--number-of-rows)) );
+  grid-row-gap: 2vmin;
+  grid-column-gap: 2vmin;
+  height: 100%;
+  width: 100%;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -28,12 +36,11 @@ exports[`renders correctly the Main component 1`] = `
 }
 
 .c3 {
-  width: 25vmin;
-  height: 36vmin;
+  width: auto;
+  height: auto;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   font-family: Nunito,sans-serif;
   text-align: center;
-  margin: 0.3em;
   cursor: pointer;
   -webkit-transition: -webkit-transform 0.5s;
   -webkit-transition: transform 0.5s;
@@ -111,34 +118,6 @@ exports[`renders correctly the Main component 1`] = `
   .c0 {
     height: 1080;
     width: 1920;
-  }
-}
-
-@media (max-aspect-ratio:635 / 399) {
-  .c2 {
-    grid-template-columns: repeat( 4, 25.5vmin );
-  }
-
-  .c2 > div {
-    width: 24vmin;
-    height: 31.4vmin;
-  }
-}
-
-@media (orientation:portrait) {
-  .c2 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-flow: wrap;
-    -ms-flex-flow: wrap;
-    flex-flow: wrap;
-  }
-
-  .c2 > div {
-    width: 24vmin;
-    height: 31.4vmin;
   }
 }
 

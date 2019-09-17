@@ -15,34 +15,25 @@ const StyledMain = styled.div`
 `;
 
 const StyledBoard = styled.div`
+  --number-of-rows: ${({ numberOfCards }) =>
+    Math.round(Math.sqrt(numberOfCards * 2))};
+  --number-of-columns: ${({ numberOfCards }) =>
+    (numberOfCards * 2) / Math.round(Math.sqrt(numberOfCards * 2))};
+  flex: 1vmin;
   display: grid;
-  height: inherit;
-  grid-template-columns: repeat(
-    ${({ numberOfCards }) =>
-      Math.round((numberOfCards * 2) / Math.round(Math.sqrt(numberOfCards)))},
-    26.5vmin
+  grid-template-rows: repeat(
+    var(--number-of-rows),
+    calc(85vmin / var(--number-of-rows))
   );
-  grid-row-gap: 0.4%;
+  grid-template-columns: repeat(
+    var(--number-of-columns),
+    calc(65vmin / var(--number-of-rows))
+  );
+  grid-row-gap: 2vmin;
+  grid-column-gap: 2vmin;
+  height: 100%;
+  width: 100%;
   justify-content: center;
-  @media (max-aspect-ratio: 635 / 399) {
-    grid-template-columns: repeat(
-      ${({ numberOfCards }) =>
-        (numberOfCards * 2) / Math.round(Math.sqrt(numberOfCards * 2))},
-      25.5vmin
-    );
-    & > div {
-      width: 24vmin;
-      height: 31.4vmin;
-    }
-  }
-  @media (orientation: portrait) {
-    display: flex;
-    flex-flow: wrap;
-    & > div {
-      width: 24vmin;
-      height: 31.4vmin;
-    }
-  }
 `;
 const StyledMoveCounter = styled.h3`
   z-index: 2;
@@ -55,12 +46,13 @@ const StyledMoveCounter = styled.h3`
 
 const StyledCard = styled.div`
   @import url("https://fonts.googleapis.com/css?family=Nunito&display=swap");
-  width: 25vmin;
-  height: 36vmin;
+  width: auto;
+  height: auto;
+  /* width: 25vmin;
+  height: 36vmin; */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   font-family: Nunito, sans-serif;
   text-align: center;
-  margin: 0.3em;
   cursor: pointer;
   transition: transform 0.5s;
   transform-style: preserve-3d;

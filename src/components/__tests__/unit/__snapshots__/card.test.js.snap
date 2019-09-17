@@ -2,12 +2,11 @@
 
 exports[`card functionality card renders correctly 1`] = `
 .c0 {
-  width: 25vmin;
-  height: 36vmin;
+  width: auto;
+  height: auto;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   font-family: Nunito,sans-serif;
   text-align: center;
-  margin: 0.3em;
   cursor: pointer;
   -webkit-transition: -webkit-transform 0.5s;
   -webkit-transition: transform 0.5s;
