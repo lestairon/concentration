@@ -3,9 +3,10 @@ import styled from "styled-components";
 const StyledMain = styled.div`
   background: #f3f3f3;
   border-radius: 10px;
+  min-height: 60vh;
   @media (min-width: 1025px) {
     height: auto;
-    width: auto;
+    width: 100%;
   }
   @media (max-width: 1920) {
     height: 1080;
@@ -14,45 +15,84 @@ const StyledMain = styled.div`
 `;
 
 const StyledBoard = styled.div`
-  display: flex;
+  display: grid;
   height: inherit;
-  flex-flow: wrap;
+  grid-template-columns: repeat(
+    ${({ numberOfCards }) =>
+      Math.round((numberOfCards * 2) / Math.round(Math.sqrt(numberOfCards)))},
+    26.5vmin
+  );
+  grid-row-gap: 0.4%;
   justify-content: center;
+  @media (max-aspect-ratio: 635 / 399) {
+    grid-template-columns: repeat(
+      ${({ numberOfCards }) =>
+        (numberOfCards * 2) / Math.round(Math.sqrt(numberOfCards * 2))},
+      25.5vmin
+    );
+    & > div {
+      width: 24vmin;
+      height: 31.4vmin;
+    }
+  }
+  @media (orientation: portrait) {
+    display: flex;
+    flex-flow: wrap;
+    & > div {
+      width: 24vmin;
+      height: 31.4vmin;
+    }
+  }
 `;
 const StyledMoveCounter = styled.h3`
+  z-index: 2;
+  pointer-events: none;
   position: absolute;
   font-family: Nunito;
+  font-size: 0.98em;
+  opacity: 0.67;
 `;
 
 const StyledCard = styled.div`
   @import url("https://fonts.googleapis.com/css?family=Nunito&display=swap");
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-  outline: none;
+  width: 25vmin;
+  height: 36vmin;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   font-family: Nunito, sans-serif;
-  background: #fff;
-  border-radius: 10px;
   text-align: center;
   margin: 0.3em;
-  width: 13vw;
-  height: 40vh;
-  min-width: 6.5em;
-  max-height: 300px;
-  min-height: 210px;
   cursor: pointer;
-  &.active {
-    animation: rotate-in-keyframes 0.6s;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+  &,
+  & .cardback,
+  & .cardfront {
+    border-radius: 10px;
   }
-  @keyframes rotate-in-keyframes {
-    from {
-      transform: rotateY(0deg);
-    }
-    to {
-      transform: rotateY(180deg) scaleX(-1);
-    }
+  &:hover,
+  & > *:hover {
+    transform: scale(1.015);
+  }
+  &.active {
+    transform: rotateY(180deg);
+  }
+  & .cardback,
+  & .cardfront {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+  & .cardfront {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  & .cardback {
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 `;
 
@@ -108,7 +148,8 @@ const StyledButton = styled.button`
 `;
 
 const StyledScoreList = styled.ol`
-  font-family: Nunito;
+  @import url("https://fonts.googleapis.com/css?family=Nunito&display=swap");
+  font-family: Nunito, sans-serif;
   grid-column-start: 1;
   grid-column-end: 3;
   grid-row-start: 1;

@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { flipCard, runTimer } from "../actions";
 import PropTypes from "prop-types";
+import cardBack from "../images/education.svg";
 import { StyledCard } from "./components";
 
 const Card = ({ number, id }) => {
@@ -20,11 +21,17 @@ const Card = ({ number, id }) => {
 
   return (
     <StyledCard
-      isFlipped={isFlipped}
       onClick={clickHandler}
       className={isFlipped && "active"}
+      number={number}
     >
-      {isFlipped && number}
+      <img
+        src={cardBack}
+        alt="Card back"
+        draggable="false"
+        className="cardfront"
+      ></img>
+      <div className="cardback">{isFlipped && number}</div>
     </StyledCard>
   );
 };

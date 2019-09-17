@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { StyledMoveCounter } from "./components";
 
 const MoveCounter = ({ moveCount }) => {
-  return <StyledMoveCounter>{moveCount}</StyledMoveCounter>;
+  return <StyledMoveCounter>Number of moves: {moveCount}</StyledMoveCounter>;
 };
 
 MoveCounter.propTypes = {

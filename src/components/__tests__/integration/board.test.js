@@ -49,11 +49,15 @@ describe("board responds correctly to state", () => {
 
   it("updates the move counter", () => {
     const { container } = component(<Main numberOfCards={1} />);
-    expect(container.firstChild.firstChild.innerHTML).toBe("0");
+    expect(container.firstChild.firstChild.innerHTML).toBe(
+      "Number of moves: 0"
+    );
     const cards = container.firstChild.firstChild.nextSibling;
     fireEvent.click(cards.firstChild);
     fireEvent.click(cards.lastChild);
-    expect(container.firstChild.firstChild.innerHTML).toBe("1");
+    expect(container.firstChild.firstChild.innerHTML).toBe(
+      "Number of moves: 1"
+    );
   });
 
   it("disables the board when 2 cards are flipped", () => {
@@ -62,7 +66,7 @@ describe("board responds correctly to state", () => {
     fireEvent.click(cards.firstChild);
     fireEvent.click(cards.lastChild);
     fireEvent.click(cards.firstChild.nextSibling);
-    expect(cards.firstChild.nextSibling.innerHTML).toBe("");
+    expect(cards.firstChild.nextSibling.textContent).toBe("");
   });
 
   it("shows the card for a short span of time if incorrect", async () => {

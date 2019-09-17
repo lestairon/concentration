@@ -18,7 +18,7 @@ const store = createStore(
 const App = () => {
   return (
     <Provider store={store}>
-      <Main numberOfCards={3} />
+      <Main numberOfCards={6} />
     </Provider>
   );
 };
