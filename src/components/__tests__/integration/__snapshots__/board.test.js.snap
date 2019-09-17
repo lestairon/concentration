@@ -159,7 +159,7 @@ exports[`board responds correctly to state restarts the game 1`] = `
         class="c3"
       >
         <img
-          alt="Card back"
+          alt="Card"
           class="cardfront"
           draggable="false"
           src="education.svg"
@@ -172,7 +172,7 @@ exports[`board responds correctly to state restarts the game 1`] = `
         class="c3"
       >
         <img
-          alt="Card back"
+          alt="Card"
           class="cardfront"
           draggable="false"
           src="education.svg"

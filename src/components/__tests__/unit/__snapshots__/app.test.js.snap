@@ -159,7 +159,7 @@ exports[`renders correctly the Main component 1`] = `
         class="c3"
       >
         <img
-          alt="Card back"
+          alt="Card"
           class="cardfront"
           draggable="false"
           src="education.svg"
@@ -172,7 +172,7 @@ exports[`renders correctly the Main component 1`] = `
         class="c3"
       >
         <img
-          alt="Card back"
+          alt="Card"
           class="cardfront"
           draggable="false"
           src="education.svg"
@@ -185,7 +185,7 @@ exports[`renders correctly the Main component 1`] = `
         class="c3"
       >
         <img
-          alt="Card back"
+          alt="Card"
           class="cardfront"
           draggable="false"
           src="education.svg"
@@ -198,7 +198,7 @@ exports[`renders correctly the Main component 1`] = `
         class="c3"
       >
         <img
-          alt="Card back"
+          alt="Card"
           class="cardfront"
           draggable="false"
           src="education.svg"
@@ -211,7 +211,7 @@ exports[`renders correctly the Main component 1`] = `
         class="c3"
       >
         <img
-          alt="Card back"
+          alt="Card"
           class="cardfront"
           draggable="false"
           src="education.svg"
@@ -224,7 +224,7 @@ exports[`renders correctly the Main component 1`] = `
         class="c3"
       >
         <img
-          alt="Card back"
+          alt="Card"
           class="cardfront"
           draggable="false"
           src="education.svg"
@@ -237,7 +237,7 @@ exports[`renders correctly the Main component 1`] = `
         class="c3"
       >
         <img
-          alt="Card back"
+          alt="Card"
           class="cardfront"
           draggable="false"
           src="education.svg"
@@ -250,7 +250,7 @@ exports[`renders correctly the Main component 1`] = `
         class="c3"
       >
         <img
-          alt="Card back"
+          alt="Card"
           class="cardfront"
           draggable="false"
           src="education.svg"
@@ -263,7 +263,7 @@ exports[`renders correctly the Main component 1`] = `
         class="c3"
       >
         <img
-          alt="Card back"
+          alt="Card"
           class="cardfront"
           draggable="false"
           src="education.svg"
@@ -276,7 +276,7 @@ exports[`renders correctly the Main component 1`] = `
         class="c3"
       >
         <img
-          alt="Card back"
+          alt="Card"
           class="cardfront"
           draggable="false"
           src="education.svg"
@@ -289,7 +289,7 @@ exports[`renders correctly the Main component 1`] = `
         class="c3"
       >
         <img
-          alt="Card back"
+          alt="Card"
           class="cardfront"
           draggable="false"
           src="education.svg"
@@ -302,7 +302,7 @@ exports[`renders correctly the Main component 1`] = `
         class="c3"
       >
         <img
-          alt="Card back"
+          alt="Card"
           class="cardfront"
           draggable="false"
           src="education.svg"

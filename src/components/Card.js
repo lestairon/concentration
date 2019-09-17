@@ -20,14 +20,10 @@ const Card = ({ number, id }) => {
   };
 
   return (
-    <StyledCard
-      onClick={clickHandler}
-      className={isFlipped && "active"}
-      number={number}
-    >
+    <StyledCard onClick={clickHandler} className={isFlipped && "active"}>
       <img
         src={cardBack}
-        alt="Card back"
+        alt="Card"
         draggable="false"
         className="cardfront"
       ></img>

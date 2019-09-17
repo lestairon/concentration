@@ -73,7 +73,7 @@ exports[`card functionality card renders correctly 1`] = `
     class="c0"
   >
     <img
-      alt="Card back"
+      alt="Card"
       class="cardfront"
       draggable="false"
       src="education.svg"
