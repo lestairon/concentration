@@ -15,7 +15,7 @@ exports[`correct functionality of the board displays the board correctly 1`] = `
   flex: 1vmin;
   display: grid;
   grid-template-rows: repeat( var(--number-of-rows), calc(85vmin / var(--number-of-rows)) );
-  grid-template-columns: repeat( var(--number-of-columns), calc(65vmin / var(--number-of-rows)) );
+  grid-template-columns: repeat( var(--number-of-columns), calc(60vmin / var(--number-of-rows)) );
   grid-row-gap: 2vmin;
   grid-column-gap: 2vmin;
   height: 100%;
@@ -237,7 +237,7 @@ exports[`correct functionality of the board shows no cards if the number is 0 1`
   flex: 1vmin;
   display: grid;
   grid-template-rows: repeat( var(--number-of-rows), calc(85vmin / var(--number-of-rows)) );
-  grid-template-columns: repeat( var(--number-of-columns), calc(65vmin / var(--number-of-rows)) );
+  grid-template-columns: repeat( var(--number-of-columns), calc(60vmin / var(--number-of-rows)) );
   grid-row-gap: 2vmin;
   grid-column-gap: 2vmin;
   height: 100%;

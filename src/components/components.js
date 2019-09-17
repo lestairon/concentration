@@ -27,7 +27,7 @@ const StyledBoard = styled.div`
   );
   grid-template-columns: repeat(
     var(--number-of-columns),
-    calc(65vmin / var(--number-of-rows))
+    calc(60vmin / var(--number-of-rows))
   );
   grid-row-gap: 2vmin;
   grid-column-gap: 2vmin;
