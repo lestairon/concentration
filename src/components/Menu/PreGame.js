@@ -13,7 +13,7 @@ const PreGame = () => {
       advanced: 6,
       hard: 10
     };
-    dispatch(createBoard({ numberOfCards: difficulty[value] }));
+    dispatch(createBoard({ pairOfCards: difficulty[value] }));
     dispatch(updateGame());
   };
 
