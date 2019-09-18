@@ -10,12 +10,9 @@ exports[`correct functionality of the board displays the board correctly 1`] = `
 .c2 {
   --number-of-rows: 2;
   --number-of-columns: 3;
-  -webkit-flex: 1vmin;
-  -ms-flex: 1vmin;
-  flex: 1vmin;
   display: grid;
   grid-template-rows: repeat( var(--number-of-rows), calc(85vmin / var(--number-of-rows)) );
-  grid-template-columns: repeat( var(--number-of-columns), calc(60vmin / var(--number-of-rows)) );
+  grid-template-columns: repeat( var(--number-of-columns), calc(85vmin / var(--number-of-columns)) );
   grid-row-gap: 2vmin;
   grid-column-gap: 2vmin;
   height: 100%;
@@ -36,8 +33,6 @@ exports[`correct functionality of the board displays the board correctly 1`] = `
 }
 
 .c3 {
-  width: auto;
-  height: auto;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   font-family: Nunito,sans-serif;
   text-align: center;
@@ -232,12 +227,9 @@ exports[`correct functionality of the board shows no cards if the number is 0 1`
 .c2 {
   --number-of-rows: 0;
   --number-of-columns: NaN;
-  -webkit-flex: 1vmin;
-  -ms-flex: 1vmin;
-  flex: 1vmin;
   display: grid;
   grid-template-rows: repeat( var(--number-of-rows), calc(85vmin / var(--number-of-rows)) );
-  grid-template-columns: repeat( var(--number-of-columns), calc(60vmin / var(--number-of-rows)) );
+  grid-template-columns: repeat( var(--number-of-columns), calc(85vmin / var(--number-of-columns)) );
   grid-row-gap: 2vmin;
   grid-column-gap: 2vmin;
   height: 100%;

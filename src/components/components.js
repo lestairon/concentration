@@ -19,7 +19,6 @@ const StyledBoard = styled.div`
     Math.round(Math.sqrt(numberOfCards * 2))};
   --number-of-columns: ${({ numberOfCards }) =>
     (numberOfCards * 2) / Math.round(Math.sqrt(numberOfCards * 2))};
-  flex: 1vmin;
   display: grid;
   grid-template-rows: repeat(
     var(--number-of-rows),
@@ -27,7 +26,7 @@ const StyledBoard = styled.div`
   );
   grid-template-columns: repeat(
     var(--number-of-columns),
-    calc(60vmin / var(--number-of-rows))
+    calc(85vmin / var(--number-of-columns))
   );
   grid-row-gap: 2vmin;
   grid-column-gap: 2vmin;
@@ -46,10 +45,6 @@ const StyledMoveCounter = styled.h3`
 
 const StyledCard = styled.div`
   @import url("https://fonts.googleapis.com/css?family=Nunito&display=swap");
-  width: auto;
-  height: auto;
-  /* width: 25vmin;
-  height: 36vmin; */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   font-family: Nunito, sans-serif;
   text-align: center;
