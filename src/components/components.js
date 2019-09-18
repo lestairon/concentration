@@ -15,10 +15,10 @@ const StyledMain = styled.div`
 `;
 
 const StyledBoard = styled.div`
-  --number-of-rows: ${({ numberOfCards }) =>
-    Math.round(Math.sqrt(numberOfCards * 2))};
-  --number-of-columns: ${({ numberOfCards }) =>
-    (numberOfCards * 2) / Math.round(Math.sqrt(numberOfCards * 2))};
+  --number-of-rows: ${({ pairOfCards }) =>
+    Math.round(Math.sqrt(pairOfCards * 2))};
+  --number-of-columns: ${({ pairOfCards }) =>
+    (pairOfCards * 2) / Math.round(Math.sqrt(pairOfCards * 2))};
   display: grid;
   grid-template-rows: repeat(
     var(--number-of-rows),

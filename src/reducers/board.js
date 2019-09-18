@@ -7,12 +7,12 @@ const initialState = {
   solved: [""],
   moveCount: 0,
   showMenu: false,
-  numberOfCards: 0
+  pairOfCards: 0
 };
 
 const boardReducer = (state = initialState, action) => {
-  const createCards = (numberOfCards, order) => {
-    const array = Array.from({ length: numberOfCards * 2 }, (_, i) =>
+  const createCards = (pairOfCards, order) => {
+    const array = Array.from({ length: pairOfCards * 2 }, (_, i) =>
       Math.floor(i / 2)
     ).map((value, index) => ({ value, key: index }));
 
@@ -25,12 +25,12 @@ const boardReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case actions.CREATE_BOARD: {
-      const cards = createCards(action.numberOfCards, action.ordered);
+      const cards = createCards(action.pairOfCards, action.ordered);
       return {
         ...initialState,
         cards,
         solved: [],
-        numberOfCards: action.numberOfCards
+        pairOfCards: action.pairOfCards
       };
     }
 

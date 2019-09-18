@@ -11,7 +11,7 @@ const Menu = ({ cleanState }) => {
   };
   const [submitted, setSubmitted] = useState(false);
 
-  const { moveCount, numberOfCards } = useSelector(
+  const { moveCount, pairOfCards } = useSelector(
     ({ boardState }) => boardState
   );
   const time = useSelector(
@@ -22,7 +22,7 @@ const Menu = ({ cleanState }) => {
     firestoreDB
       .collection("scores")
       .add({
-        card_pairs: numberOfCards,
+        card_pairs: pairOfCards,
         date: new Date(),
         moves: moveCount,
         name: "defaultUser",

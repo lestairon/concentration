@@ -11,7 +11,7 @@ const mockStore = createStore(rootReducer);
 const component = numberofCards =>
   render(
     <Provider store={mockStore}>
-      <Main numberOfCards={numberofCards} />
+      <Main pairOfCards={numberofCards} />
     </Provider>
   );
 

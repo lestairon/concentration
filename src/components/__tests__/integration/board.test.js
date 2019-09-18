@@ -29,7 +29,7 @@ const component = (
 
 describe("board responds correctly to state", () => {
   it("finishes the game correctly", async () => {
-    const { container, getByText } = component(<Main numberOfCards={1} />);
+    const { container, getByText } = component(<Main pairOfCards={1} />);
     const cards = container.firstChild.firstChild.nextSibling;
     fireEvent.click(cards.firstChild);
     fireEvent.click(cards.lastChild);
@@ -38,7 +38,7 @@ describe("board responds correctly to state", () => {
   });
 
   it("restarts the game", async () => {
-    const { container, getByText } = component(<Main numberOfCards={1} />);
+    const { container, getByText } = component(<Main pairOfCards={1} />);
     const cards = container.firstChild.firstChild.nextSibling;
     fireEvent.click(cards.firstChild);
     fireEvent.click(cards.lastChild);
@@ -48,7 +48,7 @@ describe("board responds correctly to state", () => {
   });
 
   it("updates the move counter", () => {
-    const { container } = component(<Main numberOfCards={1} />);
+    const { container } = component(<Main pairOfCards={1} />);
     expect(container.firstChild.firstChild.innerHTML).toBe(
       "Number of moves: 0"
     );
@@ -61,7 +61,7 @@ describe("board responds correctly to state", () => {
   });
 
   it("disables the board when 2 cards are flipped", () => {
-    const { container } = component(<Main numberOfCards={2} />);
+    const { container } = component(<Main pairOfCards={2} />);
     const cards = container.firstChild.firstChild.nextSibling;
     fireEvent.click(cards.firstChild);
     fireEvent.click(cards.lastChild);
@@ -71,7 +71,7 @@ describe("board responds correctly to state", () => {
 
   it("shows the card for a short span of time if incorrect", async () => {
     jest.useFakeTimers();
-    const { container } = component(<Main numberOfCards={5} ordered={true} />);
+    const { container } = component(<Main pairOfCards={5} ordered={true} />);
     const cards = container.firstChild.firstChild.nextSibling;
     jest.spyOn(actions, "runTimer").mockImplementation(() => ({ type: null }));
     fireEvent.click(cards.firstChild);
@@ -106,7 +106,7 @@ describe("score board functionality", () => {
 
   it("fetch the score ", async () => {
     mock(1);
-    const { container } = component(<Main numberOfCards={0} />);
+    const { container } = component(<Main pairOfCards={0} />);
     await waitForDomChange({ container });
     const scoreBoard = container.firstChild.firstChild.nextSibling.firstChild;
     expect(scoreBoard).toMatchSnapshot();
@@ -114,7 +114,7 @@ describe("score board functionality", () => {
 
   it("updates after submitting new score", async () => {
     mock(420);
-    const { container, queryByText } = component(<Main numberOfCards={1} />);
+    const { container, queryByText } = component(<Main pairOfCards={1} />);
     const cards = container.firstChild.firstChild.nextSibling;
     fireEvent.click(cards.firstChild);
     fireEvent.click(cards.lastChild);

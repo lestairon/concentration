@@ -1,8 +1,8 @@
 import * as actions from "../constants/actionTypes";
 
-const createBoard = ({ numberOfCards, ordered }) => ({
+const createBoard = ({ pairOfCards, ordered }) => ({
   type: actions.CREATE_BOARD,
-  numberOfCards,
+  pairOfCards,
   ordered
 });
 
