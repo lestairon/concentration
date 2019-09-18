@@ -6,7 +6,7 @@ import { firestoreDB } from "../../../config/config";
 
 jest.spyOn(firestoreDB, "collection").mockImplementation(() => ({
   onSnapshot: cb => {
-    setTimeout(() =>
+    Promise.resolve(
       cb({
         docChanges: () => [
           {

@@ -89,7 +89,7 @@ describe("score board functionality", () => {
     jest.spyOn(firestoreDB, "collection").mockImplementation(() => ({
       limit: () => ({
         onSnapshot: cb => {
-          setTimeout(() =>
+          Promise.resolve(
             cb({
               docChanges: () => [
                 {
