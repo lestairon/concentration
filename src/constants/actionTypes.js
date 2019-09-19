@@ -10,4 +10,4 @@ export const TIME = "TIME";
 export const STOP_TIMER = "STOP_TIMER";
 export const LOAD_SCORE = "LOAD_SCORE";
 export const RESET_GAME = "RESET_GAME";
-export const UPDATE_GAME = "UPDATE_GAME";
+export const FINISH_GAME = "FINISH_GAME";

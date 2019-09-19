@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { createBoard, updateGame } from "../../actions";
+import { createBoard } from "../../actions";
+import { StyledForm } from "../components";
 
 const PreGame = () => {
   const dispatch = useDispatch();
-  const [value, setValue] = useState("easy");
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -13,26 +13,22 @@ const PreGame = () => {
       advanced: 6,
       hard: 10
     };
-    dispatch(createBoard({ pairOfCards: difficulty[value] }));
-    dispatch(updateGame());
-  };
-
-  const handleChange = e => {
-    setValue(e.target.value);
+    dispatch(createBoard({ pairOfCards: difficulty[e.target.value] }));
   };
 
   return (
-    <form>
-      <label htmlFor="cards">
-        Select the difficulty:
-        <select value={value} onChange={handleChange}>
-          <option value="easy">Easy</option>
-          <option value="advanced">Advanced</option>
-          <option value="hard">Hard</option>
-        </select>
-        <button onClick={handleSubmit}>Ok</button>
-      </label>
-    </form>
+    <StyledForm>
+      <label>Select a difficulty</label>
+      <button className="easy" value="easy" onClick={handleSubmit}>
+        Easy
+      </button>
+      <button className="advanced" value="advanced" onClick={handleSubmit}>
+        Advanced
+      </button>
+      <button className="hard" value="hard" onClick={handleSubmit}>
+        Hard
+      </button>
+    </StyledForm>
   );
 };
 

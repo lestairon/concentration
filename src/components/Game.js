@@ -8,7 +8,7 @@ import {
   incrementMoves,
   resetFlipped,
   stopTimer,
-  updateGame
+  finishGame
 } from "../actions";
 import Card from "./Card";
 import PostGameMenu from "./Menu/PostGame";
@@ -16,7 +16,7 @@ import PreGameMenu from "./Menu/PreGame";
 
 const Game = () => {
   const dispatch = useDispatch();
-  const { cards, gameState, flippedCards, solved } = useSelector(
+  const { cards, gameState, flippedCards, solved, pairOfCards } = useSelector(
     ({ boardState }) => boardState
   );
 
@@ -28,7 +28,7 @@ const Game = () => {
     if (solved.length === cards.length) {
       dispatch(stopTimer());
       setTimeout(() => {
-        dispatch(updateGame());
+        dispatch(finishGame());
       }, 850);
     }
   }, [solved, cards, dispatch]);
@@ -55,7 +55,7 @@ const Game = () => {
   const stateView = {
     started: <PreGameMenu />,
     inProgress: (
-      <StyledBoard>
+      <StyledBoard pairOfCards={pairOfCards}>
         {cards.map(({ value, key }) => (
           <Card number={value} key={key} id={key} />
         ))}

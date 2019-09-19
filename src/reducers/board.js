@@ -36,7 +36,8 @@ const boardReducer = (state = initialState, action) => {
         ...initialState,
         cards,
         solved: [],
-        pairOfCards: action.pairOfCards
+        pairOfCards: action.pairOfCards,
+        gameState: states[state.gameState].next
       };
     }
 
@@ -58,7 +59,7 @@ const boardReducer = (state = initialState, action) => {
     case actions.INCREMENT_MOVES:
       return { ...state, moveCount: state.moveCount + 1 };
 
-    case actions.UPDATE_GAME: {
+    case actions.FINISH_GAME: {
       return { ...state, gameState: states[state.gameState].next };
     }
 

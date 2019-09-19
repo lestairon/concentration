@@ -49,8 +49,8 @@ const deleteCards = () => ({
   type: actions.RESET_GAME
 });
 
-const updateGame = () => ({
-  type: actions.UPDATE_GAME
+const finishGame = () => ({
+  type: actions.FINISH_GAME
 });
 
 export {
@@ -63,5 +63,5 @@ export {
   runTimer,
   stopTimer,
   deleteCards,
-  updateGame
+  finishGame
 };
