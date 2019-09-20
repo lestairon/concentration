@@ -14,7 +14,7 @@ import Card from "./Card";
 import PostGameMenu from "./Menu/PostGame";
 import PreGameMenu from "./Menu/PreGame";
 
-const Game = () => {
+const Game = ({ ordered }) => {
   const dispatch = useDispatch();
   const { cards, gameState, flippedCards, solved, pairOfCards } = useSelector(
     ({ boardState }) => boardState
@@ -53,7 +53,7 @@ const Game = () => {
   useEffect(validateFlipped, [flippedCards]);
 
   const stateView = {
-    started: <PreGameMenu />,
+    started: <PreGameMenu ordered={ordered} />,
     inProgress: (
       <StyledBoard pairOfCards={pairOfCards}>
         {cards.map(({ value, key }) => (
