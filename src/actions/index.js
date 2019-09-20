@@ -6,10 +6,24 @@ const createBoard = ({ pairOfCards, ordered }) => ({
   ordered
 });
 
-const flipCard = id => ({
-  type: actions.FLIP_CARD,
-  id
-});
+const flipCard = ({ id, number }) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: actions.FLIP_CARD,
+      id,
+      number
+    });
+    const [card1, card2] = getState().boardState.flippedCards;
+    console.log(card1, card2);
+    if (card1 && card2 && card1.id !== card2.id) {
+      dispatch(toggleDisabled());
+      if (card1.number === card2.number) {
+        dispatch(setSolved([card1.id, card2.id]));
+      }
+      dispatch(incrementMoves());
+    }
+  };
+};
 
 const toggleDisabled = () => ({
   type: actions.TOGGLE_DISABLED

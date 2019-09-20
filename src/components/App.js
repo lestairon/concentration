@@ -7,13 +7,28 @@ import thunk from "redux-thunk";
 import { getFirestore, reduxFirestore } from "redux-firestore";
 import config from "../config/config";
 
+const saveToLocalStorage = state => {
+  const serializedState = JSON.stringify(state);
+  localStorage.setItem("state", serializedState);
+};
+
+const loadFromLocalStorage = () => {
+  const serializedState = localStorage.getItem("state");
+  return JSON.parse(serializedState) || undefined;
+};
+
+const persistedState = loadFromLocalStorage();
+
 const store = createStore(
   rootReducer,
+  persistedState,
   compose(
     applyMiddleware(thunk.withExtraArgument({ getFirestore })),
     reduxFirestore(config)
   )
 );
+
+store.subscribe(() => saveToLocalStorage(store.getState()));
 
 const App = () => {
   return (
