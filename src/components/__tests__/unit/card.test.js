@@ -2,12 +2,13 @@ import Card from "../../Card";
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import rootReducer from "../../../reducers";
 import "jest-styled-components";
 import * as actions from "../../../actions";
+import thunk from "redux-thunk";
 
-const mockStore = createStore(rootReducer);
+const mockStore = createStore(rootReducer, applyMiddleware(thunk));
 
 jest.spyOn(actions, "runTimer").mockReturnValue({ type: null });
 

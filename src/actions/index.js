@@ -14,7 +14,6 @@ const flipCard = ({ id, number }) => {
       number
     });
     const [card1, card2] = getState().boardState.flippedCards;
-    console.log(card1, card2);
     if (card1 && card2 && card1.id !== card2.id) {
       dispatch(toggleDisabled());
       if (card1.number === card2.number) {
