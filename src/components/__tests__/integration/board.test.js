@@ -1,6 +1,7 @@
 import * as actions from "../../../actions";
 import Main from "../../Main";
 import React from "react";
+import Game from "../../Game";
 import { render, fireEvent, waitForDomChange } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
@@ -29,8 +30,9 @@ const component = (
 
 describe("board responds correctly to state", () => {
   it("finishes the game correctly", async () => {
-    const { container, getByText } = component(<Main pairOfCards={1} />);
-    const cards = container.firstChild.firstChild.nextSibling;
+    const { container, getByTestId, getByText } = component(<Game></Game>);
+    fireEvent.click(getByTestId("button"));
+    const cards = container.firstChild;
     fireEvent.click(cards.firstChild);
     fireEvent.click(cards.lastChild);
     await waitForDomChange({ container });
@@ -38,8 +40,9 @@ describe("board responds correctly to state", () => {
   });
 
   it("restarts the game", async () => {
-    const { container, getByText } = component(<Main pairOfCards={1} />);
-    const cards = container.firstChild.firstChild.nextSibling;
+    const { container, getByText, getByTestId } = component(<Game></Game>);
+    fireEvent.click(getByTestId("button"));
+    const cards = container.firstChild;
     fireEvent.click(cards.firstChild);
     fireEvent.click(cards.lastChild);
     await waitForDomChange({ container });
@@ -48,10 +51,9 @@ describe("board responds correctly to state", () => {
   });
 
   it("updates the move counter", () => {
-    const { container } = component(<Main pairOfCards={1} />);
-    expect(container.firstChild.firstChild.innerHTML).toBe(
-      "Number of moves: 0"
-    );
+    const { container, getByText, getByTestId } = component(<Main />);
+    getByText(/number of moves/i);
+    fireEvent.click(getByTestId("button"));
     const cards = container.firstChild.firstChild.nextSibling;
     fireEvent.click(cards.firstChild);
     fireEvent.click(cards.lastChild);
@@ -61,7 +63,8 @@ describe("board responds correctly to state", () => {
   });
 
   it("disables the board when 2 cards are flipped", () => {
-    const { container } = component(<Main pairOfCards={2} />);
+    const { container, getByText } = component(<Main pairOfCards={2} />);
+    fireEvent.click(getByText(/easy/i));
     const cards = container.firstChild.firstChild.nextSibling;
     fireEvent.click(cards.firstChild);
     fireEvent.click(cards.lastChild);
@@ -71,7 +74,8 @@ describe("board responds correctly to state", () => {
 
   it("shows the card for a short span of time if incorrect", async () => {
     jest.useFakeTimers();
-    const { container } = component(<Main pairOfCards={5} ordered={true} />);
+    const { container, getByText } = component(<Main ordered={true} />);
+    fireEvent.click(getByText(/easy/i));
     const cards = container.firstChild.firstChild.nextSibling;
     jest.spyOn(actions, "runTimer").mockImplementation(() => ({ type: null }));
     fireEvent.click(cards.firstChild);
@@ -106,7 +110,11 @@ describe("score board functionality", () => {
 
   it("fetch the score ", async () => {
     mock(1);
-    const { container } = component(<Main pairOfCards={0} />);
+    const { container, getByTestId } = component(<Main />);
+    fireEvent.click(getByTestId("button"));
+    const cards = container.firstChild.firstChild.nextSibling;
+    fireEvent.click(cards.firstChild);
+    fireEvent.click(cards.lastChild);
     await waitForDomChange({ container });
     const scoreBoard = container.firstChild.firstChild.nextSibling.firstChild;
     expect(scoreBoard).toMatchSnapshot();
@@ -114,7 +122,8 @@ describe("score board functionality", () => {
 
   it("updates after submitting new score", async () => {
     mock(420);
-    const { container, queryByText } = component(<Main pairOfCards={1} />);
+    const { container, queryByText, getByTestId } = component(<Main />);
+    fireEvent.click(getByTestId("button"));
     const cards = container.firstChild.firstChild.nextSibling;
     fireEvent.click(cards.firstChild);
     fireEvent.click(cards.lastChild);

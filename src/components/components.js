@@ -34,6 +34,7 @@ const StyledBoard = styled.div`
   width: 100%;
   justify-content: center;
 `;
+
 const StyledMoveCounter = styled.h3`
   z-index: 2;
   pointer-events: none;
@@ -44,7 +45,6 @@ const StyledMoveCounter = styled.h3`
 `;
 
 const StyledCard = styled.div`
-  @import url("https://fonts.googleapis.com/css?family=Nunito&display=swap");
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   font-family: Nunito, sans-serif;
   text-align: center;
@@ -135,7 +135,6 @@ const StyledButton = styled.button`
 `;
 
 const StyledScoreList = styled.ol`
-  @import url("https://fonts.googleapis.com/css?family=Nunito&display=swap");
   font-family: Nunito, sans-serif;
   grid-column-start: 1;
   grid-column-end: 3;
@@ -162,6 +161,36 @@ const StyledStopwatch = styled.div`
   bottom: 0;
 `;
 
+const StyledForm = styled.form`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 80vh;
+  width: 20%;
+  margin: auto;
+  & > label {
+    position: absolute;
+    top: calc(34% - 1em);
+    font-family: Nunito;
+  }
+  & > button {
+    box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.2);
+    padding: 10px 10px;
+    letter-spacing: 1px;
+    font-family: Quicksand;
+    font-weight: bold;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transition: all linear 0.2s;
+    color: black;
+    &:hover {
+      background-color: mediumaquamarine;
+      transform: scale(1.02);
+    }
+  }
+`;
+
 export {
   StyledBoard,
   StyledMain,
@@ -171,5 +200,6 @@ export {
   StyledButton,
   StyledScoreList,
   StyledScoreListElement,
-  StyledStopwatch
+  StyledStopwatch,
+  StyledForm
 };
