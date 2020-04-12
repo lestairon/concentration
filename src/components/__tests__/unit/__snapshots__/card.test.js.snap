@@ -1,10 +1,83 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`card functionality card renders correctly 1`] = `
+.c0 {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  font-family: Nunito,sans-serif;
+  text-align: center;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform 0.5s;
+  -webkit-transition: transform 0.5s;
+  transition: transform 0.5s;
+  -webkit-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.c0,
+.c0 .cardback,
+.c0 .cardfront {
+  border-radius: 10px;
+}
+
+.c0:hover,
+.c0 > *:hover {
+  -webkit-transform: scale(1.015);
+  -ms-transform: scale(1.015);
+  transform: scale(1.015);
+}
+
+.c0.active {
+  -webkit-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+.c0 .cardback,
+.c0 .cardfront {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.c0 .cardfront {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.c0 .cardback {
+  -webkit-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
 <div>
-  <button
-    class="card"
-    style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);"
-  />
+  <div
+    class="c0"
+  >
+    <img
+      alt="Card"
+      class="cardfront"
+      draggable="false"
+      src="education.svg"
+    />
+    <div
+      class="cardback"
+    />
+  </div>
 </div>
 `;
