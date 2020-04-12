@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { StyledBoard } from "./components";
 import {
   deleteCards,
-  setSolved,
   toggleDisabled,
-  incrementMoves,
   resetFlipped,
   stopTimer,
   finishGame
@@ -33,24 +31,15 @@ const Game = ({ ordered }) => {
     }
   }, [solved, cards, dispatch]);
 
-  const validateFlipped = () => {
-    const [card1, card2] = flippedCards
-      .slice(-2)
-      .map(card => cards.find(object => object.key === card));
-    if (card1 && card2 && card1.key !== card2.key) {
+  const resetFlippedCards = () => {
+    if (flippedCards.length < 2) return;
+    setTimeout(() => {
+      dispatch(resetFlipped());
       dispatch(toggleDisabled());
-      if (card1.value === card2.value) {
-        dispatch(setSolved([card1.key, card2.key]));
-      }
-      dispatch(incrementMoves());
-      setTimeout(() => {
-        dispatch(resetFlipped());
-        dispatch(toggleDisabled());
-      }, 800);
-    }
+    }, 800);
   };
 
-  useEffect(validateFlipped, [flippedCards]);
+  useEffect(resetFlippedCards, [flippedCards]);
 
   const stateView = {
     started: <PreGameMenu ordered={ordered} />,

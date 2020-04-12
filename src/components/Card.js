@@ -8,14 +8,15 @@ import { StyledCard } from "./components";
 const Card = ({ number, id }) => {
   const isFlipped = useSelector(
     ({ boardState }) =>
-      boardState.flippedCards.includes(id) || boardState.solved.includes(id)
+      boardState.flippedCards.some(x => x.id === id) ||
+      boardState.solved.includes(id)
   );
   const { disabled } = useSelector(({ boardState }) => boardState);
   const dispatch = useDispatch();
   const isRunning = useSelector(({ timer: { running } }) => running);
 
   const clickHandler = () => {
-    if (!disabled && !isFlipped) dispatch(flipCard(id));
+    if (!disabled && !isFlipped) dispatch(flipCard({ id, number }));
     !isRunning && dispatch(runTimer());
   };
 

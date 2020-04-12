@@ -1,5 +1,6 @@
 import * as actions from "../../../actions";
 import Main from "../../Main";
+import App from "../../App";
 import React from "react";
 import Game from "../../Game";
 import { render, fireEvent, waitForDomChange } from "@testing-library/react";
@@ -85,6 +86,13 @@ describe("board responds correctly to state", () => {
     jest.runAllTimers();
     expect(spyResetFlipped).toHaveBeenCalled();
     jest.useRealTimers();
+  });
+
+  it("keeps the state after refresh", () => {
+    const { getByText, rerender, queryByText } = render(<App />);
+    fireEvent.click(getByText(/easy/i));
+    rerender(<App />);
+    expect(queryByText(/easy/i)).toBeNull();
   });
 });
 

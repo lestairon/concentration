@@ -48,7 +48,13 @@ const boardReducer = (state = initialState, action) => {
       return { ...state, flippedCards: [] };
 
     case actions.FLIP_CARD:
-      return { ...state, flippedCards: [...state.flippedCards, action.id] };
+      return {
+        ...state,
+        flippedCards: [
+          ...state.flippedCards,
+          { id: action.id, number: action.number }
+        ]
+      };
 
     case actions.TOGGLE_DISABLED:
       return { ...state, disabled: !state.disabled };
@@ -60,7 +66,7 @@ const boardReducer = (state = initialState, action) => {
       return { ...state, moveCount: state.moveCount + 1 };
 
     case actions.FINISH_GAME: {
-      return { ...state, gameState: states[state.gameState].next };
+      return { ...state, gameState: states.inProgress.next };
     }
 
     default:
